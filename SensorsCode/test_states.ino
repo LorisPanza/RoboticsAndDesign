@@ -21,7 +21,9 @@ static int value_off = 0;
 bool flag_first_time = true;
 
 const int soundPin = A0;
-int big_sound_th = 90;
+
+
+int mean_offset = 30;
 
 StateMachine machine = StateMachine();
 
@@ -43,26 +45,34 @@ void setup() {
   //mpu6050.calcGyroOffsets(true);
 
   ref1 = ADCTouch.read(A1, 500);    //account for the capacitance of the pad
-  
+
+  // Transitions exiting calibration state
   calibration->addTransition(&transition_calib_shoulder, shoulder);
   calibration->addTransition(&transition_calib_still_neutral, still_neutral);
 
+  // Transitions exiting shoulder state
   shoulder->addTransition(&transition_shoulder_still, calibration);
   shoulder->addTransition(&transition_shoulder_big_noise, fear);
-  
+
+  // Transitions exiting still_neutral state
   still_neutral->addTransition(&transition_still_calib, calibration);
 
 }
 
+// Function that sets the mean value of the capacitive-proximity sensor over "samples_number" samples
 void getMeanProximity(){
 
   int count = 0;
   int total_value = 0;
   int value0, value1;
 
+  // Parameters
+  int samples_number = 30;
+  int sample_delay = 30;
+  
   mean = 0;
   
-  while(count < 30){
+  while(count < samples_number){
   
     value1 = ADCTouch.read(A1);   //   --> 100 samples
     
@@ -70,7 +80,7 @@ void getMeanProximity(){
   
     count++;
     
-    delay(30);
+    delay(sample_delay);
   }
   
   mean = total_value / count;
@@ -78,6 +88,32 @@ void getMeanProximity(){
   Serial.print("MEAN: ");Serial.print(mean);
   Serial.println('\n');
 }
+
+// Function that checks if mean is above threshold
+bool checkOverMeanProximity(){
+    
+  if(mean > old_mean + mean_offset){
+    old_mean = mean;
+    return true;
+  }
+
+  return false;
+
+}
+
+// Function that checks if mean is below threshold
+bool checkBelowMeanProximity(){
+    
+  if(mean < old_mean - mean_offset){
+    old_mean = mean;
+    return true;
+  }
+
+  return false;
+
+}
+
+
 
 void loop(){
   // put your main code here, to run repeatedly:
@@ -130,57 +166,39 @@ bool transition_shoulder_big_noise(){
 
   int val = analogRead(soundPin);
 
-  val = val - 65;
+  // Parameters
+  int sound_offset = 65;
+  int big_sound_th = 90;
+
+  val = val - sound_offset;
 
   if(val > big_sound_th){
     return true;
   }
 
   return false;
-
-  
 }
 
 bool transition_calib_shoulder(){
 
-  if(mean > old_mean + 30){
-    old_mean = mean;
-    return true;
-  }
+  return checkOverMeanProximity();
 
-  return false;
-  
 }
 
 bool transition_calib_still_neutral(){
 
-  if(mean < old_mean - 30){
-    old_mean = mean;
-    return true;
-  }
-
-  return false;
+  return checkBelowMeanProximity();
   
 }
 
 bool transition_shoulder_still(){
 
-  if(mean < old_mean - 30){
-    old_mean = mean;
-    return true;
-  }
-
-  return false;
+  return checkBelowMeanProximity();
   
 }
 
 bool transition_still_calib(){
 
-  if(mean > old_mean + 30){
-    old_mean = mean;
-    return true;
-  }
-
-  return false;
+  return checkOverMeanProximity();
   
 }
