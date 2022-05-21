@@ -339,6 +339,8 @@ bool transition_sad_still_shoulder(){
   if(mean_over){
     set_happy();
     display_state();
+    set_neutral();
+    display_state();
     return true;
   }
 
