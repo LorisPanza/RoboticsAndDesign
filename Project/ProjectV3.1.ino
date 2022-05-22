@@ -297,7 +297,7 @@ void state_angry(){
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 bool transition_angry_shoulder(){
-  delay(3000);
+  delay(1000);
   return true;
 }
 
@@ -308,6 +308,8 @@ bool transition_shoulder_sudden_movement(){
   if(abs(accX - refX) > threshold_sudden_mov){
     Serial.println("SUDDEN MOVEMENT");
     set_angry();
+    display_state();
+    set_neutral();
     display_state();
     return true;
   }
@@ -343,6 +345,8 @@ bool transition_shoulder_no_movement(){
     else{
       Serial.print("NOT MOVING ");
       set_angry();
+      display_state();
+      set_neutral();
       display_state();
       return_value = true;
     }
@@ -391,6 +395,8 @@ bool transition_sad_still_shoulder(){
 
   if(mean_over){
     set_happy();
+    display_state();
+    set_neutral();
     display_state();
     return true;
   }
