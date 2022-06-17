@@ -33,3 +33,18 @@ UPDATE 16 GIUGNO
 8. Accelerometro
 12. Capacitivo
 16. Capacitivo
+
+ARDUINO
+3. Servo Orecchie
+6. Servo Horiz
+5. Servo Vert
+4. Vibration PIN
+7(Rx)-8(Tx). Voice recognition
+9. Blue Pin
+10. Green
+11. Red
+12(Rx/terzo)-13(Tx/Secondo). MP3 module
+A5(SCL)- A4(ADS).Accelerometro 
+A2-A1.Capacitivi
+
+
