@@ -43,7 +43,7 @@ ARDUINO
 9. Blue Pin
 10. Green
 11. Red
-12(Rx/terzo)-13(Tx/Secondo). MP3 module
+12(Tx/terzo)-13(Rx/Secondo). MP3 module
 A5(SCL)- A4(ADS).Accelerometro 
 A2-A1.Capacitivi
 
