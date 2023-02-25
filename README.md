@@ -16,4 +16,4 @@ level of the third person helps people to interact better.
 
 The [user manual](G5_User%20Manual.pdf) explain how to play with Coco, the [mantainance manual](G5_User%20Manual.pdf) describe in a detailed way how Coco is composed from a technical point of view in order to maintain it.
 
-In the repository, it is possible to find code to test the Arduino sensors and the [final deliver code](DeliveryFolder\FinalProject) for the Arduino board to control the senser able to detect input from the environment and express emotion thorugh actuators as servomotors, vibration motor, etc.
+In the repository, it is possible to find code to test the Arduino sensors and the [final deliver code](FinalDeliver\FinalProject) for the Arduino board to control the senser able to detect input from the environment and express emotion thorugh actuators as servomotors, vibration motor, etc.
