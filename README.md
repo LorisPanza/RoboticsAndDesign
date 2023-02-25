@@ -14,4 +14,4 @@ extended period of time.
 The robot is shaped like a cat and can easily be carried on the shoulder. Being on the eye
 level of the third person helps people to interact better.
 
-The [user Manual](G5_User%20Manual.pdf) explain how to play with Coco, the [mantainance manual](G5_User%20Manual.pdf) describe in a detailed way how Coco is composed from a technical point of view in order to maintain it.
+The [user manual](G5_User%20Manual.pdf) explain how to play with Coco, the [mantainance manual](G5_User%20Manual.pdf) describe in a detailed way how Coco is composed from a technical point of view in order to maintain it.
